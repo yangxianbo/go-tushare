@@ -74,7 +74,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-    // 标准接口一定会配备一个数据组装接口，用来解析tushare-http接口的标准回复
+	// 标准接口一定会配备一个数据组装接口，用来解析tushare-http接口的标准回复
 	resp := tushare.AssembleStockBasicData(rsp)
 	spew.Dump(resp[0])
 	/*
