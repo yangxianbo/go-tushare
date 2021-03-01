@@ -74,6 +74,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+    // 标准接口一定会配备一个数据组装接口，用来解析tushare-http接口的标准回复
+	resp := tushare.AssembleStockBasicData(rsp)
+	spew.Dump(resp[0])
 	/*
 		(*tushare.StockBasicData)(0xc000528000)({
 			TsCode: (string) (len=9) "000001.SZ",
@@ -92,9 +95,6 @@ func main() {
 			IsHs: (string) (len=1) "S"
 		   })
 	*/
-	// 标准接口一定会配备一个数据组装接口，用来解析tushare-http接口的标准回复
-	resp := tushare.AssembleStockBasicData(rsp)
-	spew.Dump(resp[0])
 	// 唯一一个特殊接口，此接口是由多个Http接口组合而成
 	data, err := ts.ProBar(tushare.ProBarRequest{TsCode: "600167.SH", StartDate: "20210122", EndDate: "20212026", Adj: "qfq", Freq: "D", MA: []int{5}, BOLL: tushare.BOLLRequest{SD: 20, Width: 2}})
 	if err != nil {
