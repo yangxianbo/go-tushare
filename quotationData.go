@@ -160,8 +160,8 @@ type ProBarRequest struct {
 	EndDate   string      `json:"end_date,omitempty"`   // str	N	结束日期 不填写默认当天 (提取分钟数据请用2019-09-01 09:00:00这种格式)
 	Adj       string      `json:"adj,omitempty"`        // str	N	复权类型(只针对股票):为空时未复权 qfq前复权 hfq后复权 , 默认空
 	Freq      string      `json:"freq,omitempty"`       // str	Y	数据频度 :1MIN表示1分钟(1/5/15/30/60分钟) D日线 W周线 M月线 ,默认D
-	MA        []int       `json:"ma,omitempty"`         // list	N	均线,支持任意周期的均价和均量,输入任意合理int数值
-	BOLL      BOLLRequest `json:"boll,omitempty"`       // BOLLRequest	N	布林线,输入标准差和宽度
+	MA        []int       `json:"ma,omitempty"`         // list	N	均线,支持任意周期的均价和均量,输入任意合理int数值(5,20,120)
+	BOLL      BOLLRequest `json:"boll,omitempty"`       // BOLLRequest	N	布林线,输入标准差和宽度(20,2)
 }
 
 type BOLLRequest struct {
