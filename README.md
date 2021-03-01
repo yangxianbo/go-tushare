@@ -7,6 +7,7 @@ GO-TuShare
 
 已经支持了的接口
 =======
+```golang
 type TuShare
     func NewTuShare(token string) (ts *TuShare)
     func (ts *TuShare) AdjFactor(params QuotationRequest, items AdjFactorItems) (tsRsp *TushareResponse, err error)
@@ -53,6 +54,7 @@ type TuShare
     func (ts *TuShare) TopList(params TopRequest, items TopListItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) TradeCal(params TradeCalRequest, items TradeCalItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Weekly(params QuotationRequest, items QuotationItems) (tsRsp *TushareResponse, err error)
+```
 
 Usage
 =======
