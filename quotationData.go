@@ -156,7 +156,7 @@ func (ts *TuShare) AdjFactor(params QuotationRequest, items AdjFactorItems) (tsR
 // 分钟级别的请求,1000分以下每日5次
 type ProBarRequest struct {
 	TsCode    string      `json:"ts_code,omitempty"`    // str	Y	股票代码
-	StartDate string      `json:"start_date,omitempty"` // str	N	开始日期 不填写默认前365天 (提取分钟数据请用2019-09-01 09:00:00这种格式)
+	StartDate string      `json:"start_date,omitempty"` // str	N	开始日期 不填写默认前730天 (提取分钟数据请用2019-09-01 09:00:00这种格式)
 	EndDate   string      `json:"end_date,omitempty"`   // str	N	结束日期 不填写默认当天 (提取分钟数据请用2019-09-01 09:00:00这种格式)
 	Adj       string      `json:"adj,omitempty"`        // str	N	复权类型(只针对股票):为空时未复权 qfq前复权 hfq后复权 , 默认空
 	Freq      string      `json:"freq,omitempty"`       // str	Y	数据频度 :1MIN表示1分钟(1/5/15/30/60分钟) D日线 W周线 M月线 ,默认D
@@ -176,8 +176,8 @@ func (params ProBarRequest) init() (newParams ProBarRequest, err error) {
 	}
 	newParams = params
 	if params.StartDate == "" || params.EndDate == "" {
-		newParams.StartDate = Time2TushareTime(time.Unix(time.Now().Unix()-31536000, 0))
-		newParams.StartDate = Time2TushareTime(time.Now())
+		newParams.StartDate = Time2TushareTime(time.Unix(time.Now().Unix()-63072000, 0))
+		newParams.EndDate = Time2TushareTime(time.Now())
 	}
 	switch strings.ToLower(params.Adj) {
 	case "qfq", "hfq":

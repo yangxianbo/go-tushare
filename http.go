@@ -71,6 +71,5 @@ func requestTushare(client *http.Client, method string, sendbody interface{}) (t
 		return
 	}
 	err = tsRsp.CheckValid()
-
 	return
 }

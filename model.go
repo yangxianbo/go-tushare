@@ -45,6 +45,9 @@ func (ts *TushareResponse) CheckValid() error {
 	case -2002:
 		return fmt.Errorf("[TushareAPI Response] code:%d,privilege error:%s", ts.Code, ts.Msg)
 	case 0:
+		if len(ts.Data.Items) == 0 {
+			return fmt.Errorf("[TushareAPI Response] code:%d,msg:%s but empty data", ts.Code, ts.Msg)
+		}
 		return nil
 	default:
 		return fmt.Errorf("[TushareAPI Response] code:%d,msg:%s", ts.Code, ts.Msg)
