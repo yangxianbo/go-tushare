@@ -3,7 +3,7 @@ GO-TuShare
 
 官方网站：https://tushare.pro/
 
-本项目作为一个普通爱好者做的GO版本SDK，目前实现了沪深股票1000积分(含)的所有接口调用，并且增加了Boll线数据的获取，后续会逐步增加其他接口和更多技术指标数据
+本项目作为一个普通爱好者做的GO版本SDK，目前实现了沪深股票,指数1000积分(含)的所有接口调用，并且增加了Boll线数据的获取，后续会逐步增加其他接口和更多技术指标数据
 
 已经支持了的接口
 =======
@@ -19,6 +19,7 @@ type TuShare
     func (ts *TuShare) ConceptDetail(params ConceptDetailRequest, items ConceptDetailItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Daily(params QuotationRequest, items QuotationItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) DailyBasic(params QuotationRequest, items DailyBasicItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) DailyInfo(params DailyInfoRequest, items DailyInfoItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) DisclosureDate(params DisclosureDateRequest, items DisclosureDateItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Dividend(params DividendRequest, items DividendItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Express(params FinanceRequest, items ExpressItems) (tsRsp *TushareResponse, err error)
@@ -31,6 +32,13 @@ type TuShare
     func (ts *TuShare) HSGTTop10(params HSGTTop10Request, items HSGTTop10Items) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) HsConst(params HsConstRequest, items HsConstItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Income(params SheetRequest, items IncomeItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexBasic(params IndexBasicRequest, items IndexBasicItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexDaily(params QuotationRequest, items QuotationItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexDailyBasic(params QuotationRequest, items IndexDailyBasicItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexGlobal(params QuotationRequest, items IndexGlobalItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexMonthly(params QuotationRequest, items QuotationItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexWeekly(params QuotationRequest, items QuotationItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) IndexWeight(params IndexWeightRequest, items IndexWeightItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Margin(params MarginRequest, items MarginItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) MarginDetail(params MarginDetailRequest, items MarginDetailItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) MoneyflowHSGT(params MoneyflowHSGTRequest, items MoneyflowHSGTItems) (tsRsp *TushareResponse, err error)
@@ -48,6 +56,9 @@ type TuShare
     func (ts *TuShare) StockCompany(params StockCompanyRequest, items StockCompanyItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Suspend(params SuspendRequest, items SuspendItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) SuspendD(params SuspendDRequest, items SuspendDItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) THSDaily(params QuotationRequest, items THSDailyItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) THSMember(params THSMemberRequest, items THSMemberItems) (tsRsp *TushareResponse, err error)
+    func (ts *TuShare) THXIndex(params THXIndexRequest, items THXIndexItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Top10FloatHolders(params HoldersRequest, items Top10FloatHoldersItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) Top10Holders(params HoldersRequest, items Top10HoldersItems) (tsRsp *TushareResponse, err error)
     func (ts *TuShare) TopInst(params TopRequest, items TopInstItems) (tsRsp *TushareResponse, err error)
