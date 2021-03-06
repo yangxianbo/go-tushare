@@ -3,6 +3,7 @@ package tushare
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 )
 
 type StockBasicRequest struct {
@@ -424,4 +425,10 @@ func (ts *TuShare) NewShare(params NewShareCompanyRequest, items NewShareCompany
 		Fields:  reflectFields(items),
 	}
 	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+// 就是封装了trade_cal,测试tushare服务是否能连接
+func (ts *TuShare) Health() (err error) {
+	_, err = ts.TradeCal(TradeCalRequest{StartDate: Time2TushareDayTime(time.Now()), EndDate: Time2TushareDayTime(time.Now())}, TradeCalItems{}.All())
+	return err
 }
