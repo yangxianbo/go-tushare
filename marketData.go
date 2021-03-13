@@ -101,10 +101,10 @@ func (ts *TuShare) GGTTop10(params GGTTop10Request, items GGTTop10Items) (tsRsp 
 }
 
 type MarginRequest struct {
-	TradeDate  string `json:"trade_date,omitempty"`  // 	str	N	交易日期
-	ExchangeID string `json:"exchange_id,omitempty"` // 	str	N	交易所代码
-	StartDate  string `json:"start_date,omitempty"`  // 	str	N	开始日期
-	EndDate    string `json:"end_date,omitempty"`    // 	str	N	结束日期
+	TradeDate  string `json:"trade_date,omitempty"`  // str	N	交易日期
+	ExchangeID string `json:"exchange_id,omitempty"` // str	N	交易所代码
+	StartDate  string `json:"start_date,omitempty"`  // str	N	开始日期
+	EndDate    string `json:"end_date,omitempty"`    // str	N	结束日期
 }
 
 type MarginItems struct {
@@ -171,10 +171,10 @@ func (ts *TuShare) Margin(params MarginRequest, items MarginItems) (tsRsp *Tusha
 }
 
 type MarginDetailRequest struct {
-	TradeDate string `json:"trade_date,omitempty"` // 	str	N	交易日期
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	N	TS代码
-	StartDate string `json:"start_date,omitempty"` // 	str	N	开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	结束日期
+	TradeDate string `json:"trade_date,omitempty"` // str	N	交易日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	TS代码
+	StartDate string `json:"start_date,omitempty"` // str	N	开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	结束日期
 }
 
 type MarginDetailItems struct {
@@ -247,11 +247,11 @@ func (ts *TuShare) MarginDetail(params MarginDetailRequest, items MarginDetailIt
 }
 
 type HoldersRequest struct {
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	Y	TS代码
-	Period    string `json:"period,omitempty"`     // 	str	N	报告期
-	AnnDate   string `json:"ann_date,omitempty"`   // 	str	N	公告日期
-	StartDate string `json:"start_date,omitempty"` // 	str	N	报告期开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	报告期结束日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	Y	TS代码
+	Period    string `json:"period,omitempty"`     // str	N	报告期
+	AnnDate   string `json:"ann_date,omitempty"`   // str	N	公告日期
+	StartDate string `json:"start_date,omitempty"` // str	N	报告期开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	报告期结束日期
 }
 
 type Top10HoldersItems struct {
@@ -360,8 +360,8 @@ func (ts *TuShare) Top10FloatHolders(params HoldersRequest, items Top10FloatHold
 }
 
 type TopRequest struct {
-	TradeDate string `json:"trade_date,omitempty"` // 	str	Y	交易日期
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	N	股票代码
+	TradeDate string `json:"trade_date,omitempty"` // str	Y	交易日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	股票代码
 }
 
 type TopListItems struct {
@@ -506,8 +506,8 @@ func (ts *TuShare) TopInst(params TopRequest, items TopInstItems) (tsRsp *Tushar
 }
 
 type PledgeStatRequest struct {
-	TsCode  string `json:"ts_code,omitempty"`  // 	str	N	股票代码
-	EndDate string `json:"end_date,omitempty"` // 	str	N	截止日期
+	TsCode  string `json:"ts_code,omitempty"`  // str	N	股票代码
+	EndDate string `json:"end_date,omitempty"` // str	N	截止日期
 }
 
 type PledgeStatItems struct {
@@ -650,9 +650,9 @@ func (ts *TuShare) PledgeDetail(params PledgeDetailRequest, items PledgeDetailIt
 }
 
 type RepurchaseRequest struct {
-	AnnDate   string `json:"ann_date,omitempty"`   // 	str	N	公告日期（任意填参数，如果都不填，单次默认返回2000条）
-	StartDate string `json:"start_date,omitempty"` // 	str	N	公告开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	公告结束日期
+	AnnDate   string `json:"ann_date,omitempty"`   // str	N	公告日期（任意填参数，如果都不填，单次默认返回2000条）
+	StartDate string `json:"start_date,omitempty"` // str	N	公告开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	公告结束日期
 }
 
 type RepurchaseItems struct {
@@ -719,7 +719,7 @@ func (ts *TuShare) Repurchase(params RepurchaseRequest, items RepurchaseItems) (
 }
 
 type ConceptRequest struct {
-	Src string `json:"src,omitempty"` // 	str	N	来源，默认为ts
+	Src string `json:"src,omitempty"` // str	N	来源，默认为ts
 }
 
 type ConceptItems struct {
@@ -768,8 +768,8 @@ func (ts *TuShare) Concept(params ConceptRequest, items ConceptItems) (tsRsp *Tu
 }
 
 type ConceptDetailRequest struct {
-	ID     string `json:"id,omitempty"`      // 	str	N	概念分类ID （id来自概念股分类接口:TS2）
-	TsCode string `json:"ts_code,omitempty"` // 	str	N	股票代码 （以上参数二选一）
+	ID     string `json:"id,omitempty"`      // str	N	概念分类ID （id来自概念股分类接口:TS2）
+	TsCode string `json:"ts_code,omitempty"` // str	N	股票代码 （以上参数二选一）
 }
 
 type ConceptDetailItems struct {
@@ -827,11 +827,11 @@ func (ts *TuShare) ConceptDetail(params ConceptDetailRequest, items ConceptDetai
 }
 
 type ShareFloatRequest struct {
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	N	TS股票代码（至少输入一个参数）
-	AnnDate   string `json:"ann_date,omitempty"`   // 	str	N	公告日期（日期格式：YYYYMMDD，下同）
-	FloatDate string `json:"float_date,omitempty"` // 	str	N	解禁日期
-	StartDate string `json:"start_date,omitempty"` // 	str	N	解禁开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	解禁结束日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	TS股票代码（至少输入一个参数）
+	AnnDate   string `json:"ann_date,omitempty"`   // str	N	公告日期（日期格式：YYYYMMDD，下同）
+	FloatDate string `json:"float_date,omitempty"` // str	N	解禁日期
+	StartDate string `json:"start_date,omitempty"` // str	N	解禁开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	解禁结束日期
 }
 
 type ShareFloatItems struct {
@@ -892,10 +892,10 @@ func (ts *TuShare) ShareFloat(params ShareFloatRequest, items ShareFloatItems) (
 }
 
 type BlockTradeRequest struct {
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	N	TS代码（股票代码和日期至少输入一个参数）
-	TradeDate string `json:"trade_date,omitempty"` // 	str	N	交易日期（格式：YYYYMMDD，下同）
-	StartDate string `json:"start_date,omitempty"` // 	str	N	开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	结束日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	TS代码（股票代码和日期至少输入一个参数）
+	TradeDate string `json:"trade_date,omitempty"` // str	N	交易日期（格式：YYYYMMDD，下同）
+	StartDate string `json:"start_date,omitempty"` // str	N	开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	结束日期
 }
 
 type BlockTradeItems struct {
@@ -956,10 +956,10 @@ func (ts *TuShare) BlockTrade(params BlockTradeRequest, items BlockTradeItems) (
 }
 
 type StkHoldernumberRequest struct {
-	TsCode    string `json:"ts_code,omitempty"`    // 	str	N	TS股票代码
-	Enddate   string `json:"enddate,omitempty"`    // 	str	N	截止日期
-	StartDate string `json:"start_date,omitempty"` // 	str	N	公告开始日期
-	EndDate   string `json:"end_date,omitempty"`   // 	str	N	公告结束日期
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	TS股票代码
+	Enddate   string `json:"enddate,omitempty"`    // str	N	截止日期
+	StartDate string `json:"start_date,omitempty"` // str	N	公告开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	公告结束日期
 }
 
 type StkHoldernumberItems struct {
@@ -1003,6 +1003,90 @@ func AssembleStkHoldernumberData(tsRsp *TushareResponse) []*StkHoldernumberData 
 func (ts *TuShare) StkHoldernumber(params StkHoldernumberRequest, items StkHoldernumberItems) (tsRsp *TushareResponse, err error) {
 	req := &TushareRequest{
 		APIName: "stk_holdernumber",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type STKHoldertradeRequest struct {
+	TsCode     string `json:"ts_code,omitempty"`     // str	N	TS股票代码
+	AnnDate    string `json:"ann_date,omitempty"`    // str	N	公告日期
+	StartDate  string `json:"start_date,omitempty"`  // str	N	公告开始日期
+	EndDate    string `json:"end_date,omitempty"`    // str	N	公告结束日期
+	TradeType  string `json:"trade_type,omitempty"`  // str	N	交易类型IN增持DE减持
+	HolderType string `json:"holder_type,omitempty"` // str	N	股东类型C公司P个人G高管
+}
+
+type STKHoldertradeItems struct {
+	TsCode      bool `json:"ts_code,omitempty"`      // str	Y	TS代码
+	AnnDate     bool `json:"ann_date,omitempty"`     // str	Y	公告日期
+	HolderName  bool `json:"holder_name,omitempty"`  // str	Y	股东名称
+	HolderType  bool `json:"holder_type,omitempty"`  // str	Y	股东类型G高管P个人C公司
+	InDe        bool `json:"in_de,omitempty"`        // str	Y	类型IN增持DE减持
+	ChangeVol   bool `json:"change_vol,omitempty"`   // float	Y	变动数量
+	ChangeRatio bool `json:"change_ratio,omitempty"` // float	Y	占流通比例（%）
+	AfterShare  bool `json:"after_share,omitempty"`  // float	Y	变动后持股
+	AfterRatio  bool `json:"after_ratio,omitempty"`  // float	Y	变动后占流通比例（%）
+	AvgPrice    bool `json:"avg_price,omitempty"`    // float	Y	平均价格
+	TotalShare  bool `json:"total_share,omitempty"`  // float	Y	持股总数
+	BeginDate   bool `json:"begin_date,omitempty"`   // str	N	增减持开始日期
+	CloseDate   bool `json:"close_date,omitempty"`   // str	N	增减持结束日期
+}
+
+func (item STKHoldertradeItems) All() STKHoldertradeItems {
+	item.TsCode = true
+	item.AnnDate = true
+	item.HolderName = true
+	item.HolderType = true
+	item.InDe = true
+	item.ChangeVol = true
+	item.ChangeRatio = true
+	item.AfterShare = true
+	item.AfterRatio = true
+	item.AvgPrice = true
+	item.TotalShare = true
+	item.BeginDate = true
+	item.CloseDate = true
+	return item
+}
+
+type STKHoldertradeData struct {
+	TsCode      string  `json:"ts_code,omitempty"`      // str	Y	TS代码
+	AnnDate     string  `json:"ann_date,omitempty"`     // str	Y	公告日期
+	HolderName  string  `json:"holder_name,omitempty"`  // str	Y	股东名称
+	HolderType  string  `json:"holder_type,omitempty"`  // str	Y	股东类型G高管P个人C公司
+	InDe        string  `json:"in_de,omitempty"`        // str	Y	类型IN增持DE减持
+	ChangeVol   float64 `json:"change_vol,omitempty"`   // float	Y	变动数量
+	ChangeRatio float64 `json:"change_ratio,omitempty"` // float	Y	占流通比例（%）
+	AfterShare  float64 `json:"after_share,omitempty"`  // float	Y	变动后持股
+	AfterRatio  float64 `json:"after_ratio,omitempty"`  // float	Y	变动后占流通比例（%）
+	AvgPrice    float64 `json:"avg_price,omitempty"`    // float	Y	平均价格
+	TotalShare  float64 `json:"total_share,omitempty"`  // float	Y	持股总数
+	BeginDate   string  `json:"begin_date,omitempty"`   // str	N	增减持开始日期
+	CloseDate   string  `json:"close_date,omitempty"`   // str	N	增减持结束日期
+}
+
+func AssembleSTKHoldertradeData(tsRsp *TushareResponse) []*STKHoldertradeData {
+	tsData := []*STKHoldertradeData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(STKHoldertradeData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取上市公司管理层薪酬和持股,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) STKHoldertrade(params STKHoldertradeRequest, items STKHoldertradeItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "stk_holdertrade",
 		Token:   ts.token,
 		Params:  buildParams(params),
 		Fields:  reflectFields(items),

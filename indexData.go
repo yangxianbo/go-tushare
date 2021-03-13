@@ -375,12 +375,12 @@ type THXIndexRequest struct {
 }
 
 type THXIndexItems struct {
-	TsCode   bool `json:"ts_code,omitempty"`   // 	str	Y	代码
-	Name     bool `json:"name,omitempty"`      // 	str	Y	名称
-	Count    bool `json:"count,omitempty"`     // 	int	Y	成分个数
-	Exchange bool `json:"exchange,omitempty"`  // 	str	Y	交易所
-	ListDate bool `json:"list_date,omitempty"` // 	str	Y	上市日期
-	Type     bool `json:"type,omitempty"`      // 	str	Y	N概念指数S特色指数
+	TsCode   bool `json:"ts_code,omitempty"`   // str	Y	代码
+	Name     bool `json:"name,omitempty"`      // str	Y	名称
+	Count    bool `json:"count,omitempty"`     // int	Y	成分个数
+	Exchange bool `json:"exchange,omitempty"`  // str	Y	交易所
+	ListDate bool `json:"list_date,omitempty"` // str	Y	上市日期
+	Type     bool `json:"type,omitempty"`      // str	Y	N概念指数S特色指数
 }
 
 func (item THXIndexItems) All() THXIndexItems {
@@ -394,12 +394,12 @@ func (item THXIndexItems) All() THXIndexItems {
 }
 
 type THXIndexData struct {
-	TsCode   string `json:"ts_code,omitempty"`   // 	str	Y	代码
-	Name     string `json:"name,omitempty"`      // 	str	Y	名称
-	Count    int64  `json:"count,omitempty"`     // 	int	Y	成分个数
-	Exchange string `json:"exchange,omitempty"`  // 	str	Y	交易所
-	ListDate string `json:"list_date,omitempty"` // 	str	Y	上市日期
-	Type     string `json:"type,omitempty"`      // 	str	Y	N概念指数S特色指数
+	TsCode   string `json:"ts_code,omitempty"`   // str	Y	代码
+	Name     string `json:"name,omitempty"`      // str	Y	名称
+	Count    int64  `json:"count,omitempty"`     // int	Y	成分个数
+	Exchange string `json:"exchange,omitempty"`  // str	Y	交易所
+	ListDate string `json:"list_date,omitempty"` // str	Y	上市日期
+	Type     string `json:"type,omitempty"`      // str	Y	N概念指数S特色指数
 }
 
 func AssembleTHXIndexData(tsRsp *TushareResponse) []*THXIndexData {
@@ -429,20 +429,20 @@ func (ts *TuShare) THXIndex(params THXIndexRequest, items THXIndexItems) (tsRsp 
 }
 
 type THSDailyItems struct {
-	TsCode       bool `json:"ts_code,omitempty"`       // 	str	Y	TS指数代码
-	TradeDate    bool `json:"trade_date,omitempty"`    // 	str	Y	交易日
-	Close        bool `json:"close,omitempty"`         // 	float	Y	收盘点位
-	Open         bool `json:"open,omitempty"`          // 	float	Y	开盘点位
-	High         bool `json:"high,omitempty"`          // 	float	Y	最高点位
-	Low          bool `json:"low,omitempty"`           // 	float	Y	最低点位
-	PreClose     bool `json:"pre_close,omitempty"`     // 	float	Y	昨日收盘点
-	AvgPrice     bool `json:"avg_price,omitempty"`     // 	float	Y	平均价
-	Change       bool `json:"change,omitempty"`        // 	float	Y	涨跌点位
-	PctChange    bool `json:"pct_change,omitempty"`    // 	float	Y	涨跌幅
-	Vol          bool `json:"vol,omitempty"`           // 	float	Y	成交量
-	TurnoverRate bool `json:"turnover_rate,omitempty"` // 	float	Y	换手率
-	TotalMV      bool `json:"total_mv,omitempty"`      // 	float	N	总市值
-	FloatMV      bool `json:"float_mv,omitempty"`      // 	float	N	流通市值
+	TsCode       bool `json:"ts_code,omitempty"`       // str	Y	TS指数代码
+	TradeDate    bool `json:"trade_date,omitempty"`    // str	Y	交易日
+	Close        bool `json:"close,omitempty"`         // float	Y	收盘点位
+	Open         bool `json:"open,omitempty"`          // float	Y	开盘点位
+	High         bool `json:"high,omitempty"`          // float	Y	最高点位
+	Low          bool `json:"low,omitempty"`           // float	Y	最低点位
+	PreClose     bool `json:"pre_close,omitempty"`     // float	Y	昨日收盘点
+	AvgPrice     bool `json:"avg_price,omitempty"`     // float	Y	平均价
+	Change       bool `json:"change,omitempty"`        // float	Y	涨跌点位
+	PctChange    bool `json:"pct_change,omitempty"`    // float	Y	涨跌幅
+	Vol          bool `json:"vol,omitempty"`           // float	Y	成交量
+	TurnoverRate bool `json:"turnover_rate,omitempty"` // float	Y	换手率
+	TotalMV      bool `json:"total_mv,omitempty"`      // float	N	总市值
+	FloatMV      bool `json:"float_mv,omitempty"`      // float	N	流通市值
 }
 
 func (item THSDailyItems) All() THSDailyItems {
@@ -464,20 +464,20 @@ func (item THSDailyItems) All() THSDailyItems {
 }
 
 type THSDailyData struct {
-	TsCode       string  `json:"ts_code,omitempty"`       // 	str	Y	TS指数代码
-	TradeDate    string  `json:"trade_date,omitempty"`    // 	str	Y	交易日
-	Close        float64 `json:"close,omitempty"`         // 	float	Y	收盘点位
-	Open         float64 `json:"open,omitempty"`          // 	float	Y	开盘点位
-	High         float64 `json:"high,omitempty"`          // 	float	Y	最高点位
-	Low          float64 `json:"low,omitempty"`           // 	float	Y	最低点位
-	PreClose     float64 `json:"pre_close,omitempty"`     // 	float	Y	昨日收盘点
-	AvgPrice     float64 `json:"avg_price,omitempty"`     // 	float	Y	平均价
-	Change       float64 `json:"change,omitempty"`        // 	float	Y	涨跌点位
-	PctChange    float64 `json:"pct_change,omitempty"`    // 	float	Y	涨跌幅
-	Vol          float64 `json:"vol,omitempty"`           // 	float	Y	成交量
-	TurnoverRate float64 `json:"turnover_rate,omitempty"` // 	float	Y	换手率
-	TotalMV      float64 `json:"total_mv,omitempty"`      // 	float	N	总市值
-	FloatMV      float64 `json:"float_mv,omitempty"`      // 	float	N	流通市值
+	TsCode       string  `json:"ts_code,omitempty"`       // str	Y	TS指数代码
+	TradeDate    string  `json:"trade_date,omitempty"`    // str	Y	交易日
+	Close        float64 `json:"close,omitempty"`         // float	Y	收盘点位
+	Open         float64 `json:"open,omitempty"`          // float	Y	开盘点位
+	High         float64 `json:"high,omitempty"`          // float	Y	最高点位
+	Low          float64 `json:"low,omitempty"`           // float	Y	最低点位
+	PreClose     float64 `json:"pre_close,omitempty"`     // float	Y	昨日收盘点
+	AvgPrice     float64 `json:"avg_price,omitempty"`     // float	Y	平均价
+	Change       float64 `json:"change,omitempty"`        // float	Y	涨跌点位
+	PctChange    float64 `json:"pct_change,omitempty"`    // float	Y	涨跌幅
+	Vol          float64 `json:"vol,omitempty"`           // float	Y	成交量
+	TurnoverRate float64 `json:"turnover_rate,omitempty"` // float	Y	换手率
+	TotalMV      float64 `json:"total_mv,omitempty"`      // float	N	总市值
+	FloatMV      float64 `json:"float_mv,omitempty"`      // float	N	流通市值
 }
 
 func AssembleTHSDailyData(tsRsp *TushareResponse) []*THSDailyData {
@@ -511,13 +511,13 @@ type THSMemberRequest struct {
 }
 
 type THSMemberItems struct {
-	TsCode  bool `json:"ts_code,omitempty"`  // 	str	Y	指数代码
-	Code    bool `json:"code,omitempty"`     // 	str	Y	股票代码
-	Name    bool `json:"name,omitempty"`     // 	str	Y	股票名称
-	Weight  bool `json:"weight,omitempty"`   // 	float	N	权重
-	InDate  bool `json:"in_date,omitempty"`  // 	str	N	纳入日期
-	OutDate bool `json:"out_date,omitempty"` // 	str	N	剔除日期
-	IsNew   bool `json:"is_new,omitempty"`   // 	str	N	是否最新Y是N否
+	TsCode  bool `json:"ts_code,omitempty"`  // str	Y	指数代码
+	Code    bool `json:"code,omitempty"`     // str	Y	股票代码
+	Name    bool `json:"name,omitempty"`     // str	Y	股票名称
+	Weight  bool `json:"weight,omitempty"`   // float	N	权重
+	InDate  bool `json:"in_date,omitempty"`  // str	N	纳入日期
+	OutDate bool `json:"out_date,omitempty"` // str	N	剔除日期
+	IsNew   bool `json:"is_new,omitempty"`   // str	N	是否最新Y是N否
 }
 
 func (item THSMemberItems) All() THSMemberItems {
@@ -532,13 +532,13 @@ func (item THSMemberItems) All() THSMemberItems {
 }
 
 type THSMemberData struct {
-	TsCode  string  `json:"ts_code,omitempty"`  // 	str	Y	指数代码
-	Code    string  `json:"code,omitempty"`     // 	str	Y	股票代码
-	Name    string  `json:"name,omitempty"`     // 	str	Y	股票名称
-	Weight  float64 `json:"weight,omitempty"`   // 	float	N	权重
-	InDate  string  `json:"in_date,omitempty"`  // 	str	N	纳入日期
-	OutDate string  `json:"out_date,omitempty"` // 	str	N	剔除日期
-	IsNew   string  `json:"is_new,omitempty"`   // 	str	N	是否最新Y是N否
+	TsCode  string  `json:"ts_code,omitempty"`  // str	Y	指数代码
+	Code    string  `json:"code,omitempty"`     // str	Y	股票代码
+	Name    string  `json:"name,omitempty"`     // str	Y	股票名称
+	Weight  float64 `json:"weight,omitempty"`   // float	N	权重
+	InDate  string  `json:"in_date,omitempty"`  // str	N	纳入日期
+	OutDate string  `json:"out_date,omitempty"` // str	N	剔除日期
+	IsNew   string  `json:"is_new,omitempty"`   // str	N	是否最新Y是N否
 }
 
 func AssembleTHSMemberData(tsRsp *TushareResponse) []*THSMemberData {
@@ -568,18 +568,18 @@ func (ts *TuShare) THSMember(params THSMemberRequest, items THSMemberItems) (tsR
 }
 
 type IndexGlobalItems struct {
-	TsCode    bool `json:"ts_code,omitempty"`    // 	str	Y	TS指数代码
-	TradeDate bool `json:"trade_date,omitempty"` // 	str	Y	交易日
-	Open      bool `json:"open,omitempty"`       // 	float	Y	开盘点位
-	Close     bool `json:"close,omitempty"`      // 	float	Y	收盘点位
-	High      bool `json:"high,omitempty"`       // 	float	Y	最高点位
-	Low       bool `json:"low,omitempty"`        // 	float	Y	最低点位
-	PreClose  bool `json:"pre_close,omitempty"`  // 	float	Y	昨日收盘点
-	Change    bool `json:"change,omitempty"`     // 	float	Y	涨跌点位
-	PctChg    bool `json:"pct_chg,omitempty"`    // 	float	Y	涨跌幅
-	Swing     bool `json:"swing,omitempty"`      // 	float	Y	振幅
-	Vol       bool `json:"vol,omitempty"`        // 	float	Y	成交量 (大部分无此项数据)
-	Amount    bool `json:"amount,omitempty"`     // 	float	N	成交额 (大部分无此项数据)
+	TsCode    bool `json:"ts_code,omitempty"`    // str	Y	TS指数代码
+	TradeDate bool `json:"trade_date,omitempty"` // str	Y	交易日
+	Open      bool `json:"open,omitempty"`       // float	Y	开盘点位
+	Close     bool `json:"close,omitempty"`      // float	Y	收盘点位
+	High      bool `json:"high,omitempty"`       // float	Y	最高点位
+	Low       bool `json:"low,omitempty"`        // float	Y	最低点位
+	PreClose  bool `json:"pre_close,omitempty"`  // float	Y	昨日收盘点
+	Change    bool `json:"change,omitempty"`     // float	Y	涨跌点位
+	PctChg    bool `json:"pct_chg,omitempty"`    // float	Y	涨跌幅
+	Swing     bool `json:"swing,omitempty"`      // float	Y	振幅
+	Vol       bool `json:"vol,omitempty"`        // float	Y	成交量 (大部分无此项数据)
+	Amount    bool `json:"amount,omitempty"`     // float	N	成交额 (大部分无此项数据)
 }
 
 func (item IndexGlobalItems) All() IndexGlobalItems {
@@ -599,18 +599,18 @@ func (item IndexGlobalItems) All() IndexGlobalItems {
 }
 
 type IndexGlobalData struct {
-	TsCode    string  `json:"ts_code,omitempty"`    // 	str	Y	TS指数代码
-	TradeDate string  `json:"trade_date,omitempty"` // 	str	Y	交易日
-	Open      float64 `json:"open,omitempty"`       // 	float	Y	开盘点位
-	Close     float64 `json:"close,omitempty"`      // 	float	Y	收盘点位
-	High      float64 `json:"high,omitempty"`       // 	float	Y	最高点位
-	Low       float64 `json:"low,omitempty"`        // 	float	Y	最低点位
-	PreClose  float64 `json:"pre_close,omitempty"`  // 	float	Y	昨日收盘点
-	Change    float64 `json:"change,omitempty"`     // 	float	Y	涨跌点位
-	PctChg    float64 `json:"pct_chg,omitempty"`    // 	float	Y	涨跌幅
-	Swing     float64 `json:"swing,omitempty"`      // 	float	Y	振幅
-	Vol       float64 `json:"vol,omitempty"`        // 	float	Y	成交量 (大部分无此项数据)
-	Amount    float64 `json:"amount,omitempty"`     // 	float	N	成交额 (大部分无此项数据)
+	TsCode    string  `json:"ts_code,omitempty"`    // str	Y	TS指数代码
+	TradeDate string  `json:"trade_date,omitempty"` // str	Y	交易日
+	Open      float64 `json:"open,omitempty"`       // float	Y	开盘点位
+	Close     float64 `json:"close,omitempty"`      // float	Y	收盘点位
+	High      float64 `json:"high,omitempty"`       // float	Y	最高点位
+	Low       float64 `json:"low,omitempty"`        // float	Y	最低点位
+	PreClose  float64 `json:"pre_close,omitempty"`  // float	Y	昨日收盘点
+	Change    float64 `json:"change,omitempty"`     // float	Y	涨跌点位
+	PctChg    float64 `json:"pct_chg,omitempty"`    // float	Y	涨跌幅
+	Swing     float64 `json:"swing,omitempty"`      // float	Y	振幅
+	Vol       float64 `json:"vol,omitempty"`        // float	Y	成交量 (大部分无此项数据)
+	Amount    float64 `json:"amount,omitempty"`     // float	N	成交额 (大部分无此项数据)
 }
 
 func AssembleIndexGlobalData(tsRsp *TushareResponse) []*IndexGlobalData {
@@ -628,10 +628,149 @@ func AssembleIndexGlobalData(tsRsp *TushareResponse) []*IndexGlobalData {
 	return tsData
 }
 
+// TS指数代码	指数名称
+// XIN9	富时中国A50指数 (富时A50)
+// HSI	恒生指数
+// DJI	道琼斯工业指数
+// SPX	标普500指数
+// IXIC	纳斯达克指数
+// FTSE	富时100指数
+// FCHI	法国CAC40指数
+// GDAXI	德国DAX指数
+// N225	日经225指数
+// KS11	韩国综合指数
+// AS51	澳大利亚标普200指数
+// SENSEX	印度孟买SENSEX指数
+// IBOVESPA	巴西IBOVESPA指数
+// RTS	俄罗斯RTS指数
+// TWII	台湾加权指数
+// CKLSE	马来西亚指数
+// SPTSX	加拿大S&P/TSX指数
+// CSX5P	STOXX欧洲50指数
 // 获取国际主要指数日线行情,单次最大2000条,可循环获取,总量不限制,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
 func (ts *TuShare) IndexGlobal(params QuotationRequest, items IndexGlobalItems) (tsRsp *TushareResponse, err error) {
 	req := &TushareRequest{
 		APIName: "index_global",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type IndexClassifyRequest struct {
+	IndexCode string `json:"index_code,omitempty"` // str	N	指数代码
+	Level     string `json:"level,omitempty"`      // str	N	行业分级(L1/L2/L3)
+	Src       string `json:"src,omitempty"`        // str	N	指数来源(SW申万)
+}
+
+type IndexClassifyItems struct {
+	IndexCode    bool `json:"index_code,omitempty"`    // str	Y	指数代码
+	IndustryName bool `json:"industry_name,omitempty"` // str	Y	行业名称
+	Level        bool `json:"level,omitempty"`         // str	Y	行业名称
+	IndustryCode bool `json:"industry_code,omitempty"` // str	N	行业代码
+	Src          bool `json:"src,omitempty"`           // str	N	行业分类(SW申万)
+}
+
+func (item IndexClassifyItems) All() IndexClassifyItems {
+	item.IndexCode = true
+	item.IndustryName = true
+	item.Level = true
+	item.IndustryCode = true
+	item.Src = true
+	return item
+}
+
+type IndexClassifyData struct {
+	IndexCode    string `json:"index_code,omitempty"`    // str	Y	指数代码
+	IndustryName string `json:"industry_name,omitempty"` // str	Y	行业名称
+	Level        string `json:"level,omitempty"`         // str	Y	行业名称
+	IndustryCode string `json:"industry_code,omitempty"` // str	N	行业代码
+	Src          string `json:"src,omitempty"`           // str	N	行业分类(SW申万)
+}
+
+func AssembleIndexClassifyData(tsRsp *TushareResponse) []*IndexClassifyData {
+	tsData := []*IndexClassifyData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(IndexClassifyData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取申万行业分类,包括申万28个一级分类,104个二级分类,227个三级分类的列表信息,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) IndexClassify(params IndexClassifyRequest, items IndexClassifyItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "index_classify",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type IndexMemberRequest struct {
+	IndexCode string `json:"index_code,omitempty"` // str	N	指数代码
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	股票代码
+	IsNew     string `json:"is_new,omitempty"`     // str	N	是否最新(默认为“Y是”)
+}
+
+type IndexMemberItems struct {
+	IndexCode bool `json:"index_code,omitempty"` // str	Y	指数代码
+	IndexName bool `json:"index_name,omitempty"` // str	N	指数名称
+	ConCode   bool `json:"con_code,omitempty"`   // str	Y	成分股票代码
+	ConName   bool `json:"con_name,omitempty"`   // str	Y	成分股票名称
+	InDate    bool `json:"in_date,omitempty"`    // str	Y	纳入日期
+	OutDate   bool `json:"out_date,omitempty"`   // str	Y	剔除日期
+	IsNew     bool `json:"is_new,omitempty"`     // str	N	是否最新Y是N否
+}
+
+func (item IndexMemberItems) All() IndexMemberItems {
+	item.IndexCode = true
+	item.IndexName = true
+	item.ConCode = true
+	item.ConName = true
+	item.InDate = true
+	item.OutDate = true
+	item.IsNew = true
+	return item
+}
+
+type IndexMemberData struct {
+	IndexCode string `json:"index_code,omitempty"` // str	Y	指数代码
+	IndexName string `json:"index_name,omitempty"` // str	N	指数名称
+	ConCode   string `json:"con_code,omitempty"`   // str	Y	成分股票代码
+	ConName   string `json:"con_name,omitempty"`   // str	Y	成分股票名称
+	InDate    string `json:"in_date,omitempty"`    // str	Y	纳入日期
+	OutDate   string `json:"out_date,omitempty"`   // str	Y	剔除日期
+	IsNew     string `json:"is_new,omitempty"`     // str	N	是否最新Y是N否
+}
+
+func AssembleIndexMemberData(tsRsp *TushareResponse) []*IndexMemberData {
+	tsData := []*IndexMemberData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(IndexMemberData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 申万行业成分,单次最大2000行,总量不限制,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) IndexMember(params IndexMemberRequest, items IndexMemberItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "index_member",
 		Token:   ts.token,
 		Params:  buildParams(params),
 		Fields:  reflectFields(items),

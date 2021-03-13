@@ -309,7 +309,15 @@ func qfq(qData []*QuotationData, dMap map[string]*DailyBasicData, aMap map[strin
 		p.PctChg = q.PctChg * aMap[q.TradeDate] / adjNew
 		p.Vol = q.Vol
 		p.Amount = q.Amount
-		p.DailyBasic = dMap[q.TradeDate]
+		// 防止获取不到数据产生空指针问题
+		if dMap[q.TradeDate] == nil {
+			p.DailyBasic = &DailyBasicData{
+				TsCode:    q.TsCode,
+				TradeDate: q.TradeDate,
+			}
+		} else {
+			p.DailyBasic = dMap[q.TradeDate]
+		}
 		pData = append(pData, p)
 	}
 	return
@@ -331,7 +339,15 @@ func hfq(qData []*QuotationData, dMap map[string]*DailyBasicData, aMap map[strin
 		p.PctChg = q.PctChg * aMap[q.TradeDate]
 		p.Vol = q.Vol
 		p.Amount = q.Amount
-		p.DailyBasic = dMap[q.TradeDate]
+		// 防止获取不到数据产生空指针问题
+		if dMap[q.TradeDate] == nil {
+			p.DailyBasic = &DailyBasicData{
+				TsCode:    q.TsCode,
+				TradeDate: q.TradeDate,
+			}
+		} else {
+			p.DailyBasic = dMap[q.TradeDate]
+		}
 		pData = append(pData, p)
 	}
 	return
@@ -353,7 +369,15 @@ func nfq(qData []*QuotationData, dMap map[string]*DailyBasicData) (pData []*ProB
 		p.PctChg = q.PctChg
 		p.Vol = q.Vol
 		p.Amount = q.Amount
-		p.DailyBasic = dMap[q.TradeDate]
+		// 防止获取不到数据产生空指针问题
+		if dMap[q.TradeDate] == nil {
+			p.DailyBasic = &DailyBasicData{
+				TsCode:    q.TsCode,
+				TradeDate: q.TradeDate,
+			}
+		} else {
+			p.DailyBasic = dMap[q.TradeDate]
+		}
 		pData = append(pData, p)
 	}
 	return
@@ -976,6 +1000,245 @@ func AssembleBakDailyData(tsRsp *TushareResponse) []*BakDailyData {
 func (ts *TuShare) BakDaily(params BakDailyRequest, items BakDailyItems) (tsRsp *TushareResponse, err error) {
 	req := &TushareRequest{
 		APIName: "bak_daily",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type MoneyflowItems struct {
+	TsCode        bool `json:"ts_code,omitempty"`         // str	Y	TS代码
+	TradeDate     bool `json:"trade_date,omitempty"`      // str	Y	交易日期
+	BuySmVol      bool `json:"buy_sm_vol,omitempty"`      // int	Y	小单买入量(手)
+	BuySmAmount   bool `json:"buy_sm_amount,omitempty"`   // float	Y	小单买入金额(万元)
+	SellSmVol     bool `json:"sell_sm_vol,omitempty"`     // int	Y	小单卖出量(手)
+	SellSmAmount  bool `json:"sell_sm_amount,omitempty"`  // float	Y	小单卖出金额(万元)
+	BuyMdVol      bool `json:"buy_md_vol,omitempty"`      // int	Y	中单买入量(手)
+	BuyMdAmount   bool `json:"buy_md_amount,omitempty"`   // float	Y	中单买入金额(万元)
+	SellMdVol     bool `json:"sell_md_vol,omitempty"`     // int	Y	中单卖出量(手)
+	SellMdAmount  bool `json:"sell_md_amount,omitempty"`  // float	Y	中单卖出金额(万元)
+	BuyLgVol      bool `json:"buy_lg_vol,omitempty"`      // int	Y	大单买入量(手)
+	BuyLgAmount   bool `json:"buy_lg_amount,omitempty"`   // float	Y	大单买入金额(万元)
+	SellLgVol     bool `json:"sell_lg_vol,omitempty"`     // int	Y	大单卖出量(手)
+	SellLgAmount  bool `json:"sell_lg_amount,omitempty"`  // float	Y	大单卖出金额(万元)
+	BuyElgVol     bool `json:"buy_elg_vol,omitempty"`     // int	Y	特大单买入量(手)
+	BuyElgAmount  bool `json:"buy_elg_amount,omitempty"`  // float	Y	特大单买入金额(万元
+	SellElgVol    bool `json:"sell_elg_vol,omitempty"`    // int	Y	特大单卖出量(手)
+	SellElgAmount bool `json:"sell_elg_amount,omitempty"` // float	Y	特大单卖出金额(万元
+	NetMfVol      bool `json:"net_mf_vol,omitempty"`      // int	Y	净流入量(手)
+	NetMfAmount   bool `json:"net_mf_amount,omitempty"`   // float	Y	净流入额(万元)
+}
+
+func (item MoneyflowItems) All() MoneyflowItems {
+	item.TsCode = true
+	item.TradeDate = true
+	item.BuySmVol = true
+	item.BuySmAmount = true
+	item.SellSmVol = true
+	item.SellSmAmount = true
+	item.BuyMdVol = true
+	item.BuyMdAmount = true
+	item.SellMdVol = true
+	item.SellMdAmount = true
+	item.BuyLgVol = true
+	item.BuyLgAmount = true
+	item.SellLgVol = true
+	item.SellLgAmount = true
+	item.BuyElgVol = true
+	item.BuyElgAmount = true
+	item.SellElgVol = true
+	item.SellElgAmount = true
+	item.NetMfVol = true
+	item.NetMfAmount = true
+	return item
+}
+
+type MoneyflowData struct {
+	TsCode        string  `json:"ts_code,omitempty"`         // str	Y	TS代码
+	TradeDate     string  `json:"trade_date,omitempty"`      // str	Y	交易日期
+	BuySmVol      int64   `json:"buy_sm_vol,omitempty"`      // int	Y	小单买入量(手)
+	BuySmAmount   float64 `json:"buy_sm_amount,omitempty"`   // float	Y	小单买入金额(万元)
+	SellSmVol     int64   `json:"sell_sm_vol,omitempty"`     // int	Y	小单卖出量(手)
+	SellSmAmount  float64 `json:"sell_sm_amount,omitempty"`  // float	Y	小单卖出金额(万元)
+	BuyMdVol      int64   `json:"buy_md_vol,omitempty"`      // int	Y	中单买入量(手)
+	BuyMdAmount   float64 `json:"buy_md_amount,omitempty"`   // float	Y	中单买入金额(万元)
+	SellMdVol     int64   `json:"sell_md_vol,omitempty"`     // int	Y	中单卖出量(手)
+	SellMdAmount  float64 `json:"sell_md_amount,omitempty"`  // float	Y	中单卖出金额(万元)
+	BuyLgVol      int64   `json:"buy_lg_vol,omitempty"`      // int	Y	大单买入量(手)
+	BuyLgAmount   float64 `json:"buy_lg_amount,omitempty"`   // float	Y	大单买入金额(万元)
+	SellLgVol     int64   `json:"sell_lg_vol,omitempty"`     // int	Y	大单卖出量(手)
+	SellLgAmount  float64 `json:"sell_lg_amount,omitempty"`  // float	Y	大单卖出金额(万元)
+	BuyElgVol     int64   `json:"buy_elg_vol,omitempty"`     // int	Y	特大单买入量(手)
+	BuyElgAmount  float64 `json:"buy_elg_amount,omitempty"`  // float	Y	特大单买入金额(万元
+	SellElgVol    int64   `json:"sell_elg_vol,omitempty"`    // int	Y	特大单卖出量(手)
+	SellElgAmount float64 `json:"sell_elg_amount,omitempty"` // float	Y	特大单卖出金额(万元
+	NetMfVol      int64   `json:"net_mf_vol,omitempty"`      // int	Y	净流入量(手)
+	NetMfAmount   float64 `json:"net_mf_amount,omitempty"`   // float	Y	净流入额(万元)
+}
+
+func AssembleMoneyflowData(tsRsp *TushareResponse) []*MoneyflowData {
+	tsData := []*MoneyflowData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(MoneyflowData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取沪深A股票资金流向数据,分析大单小单成交情况,用于判别资金动向,单次最大提取4500行记录,总量不限制,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) Moneyflow(params QuotationRequest, items MoneyflowItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "moneyflow",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type LimitListRequest struct {
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	股票代码,支持单个或多个股票输入 000001.SZ,600000.SH
+	TradeDate string `json:"trade_date,omitempty"` // str	N	交易日期 YYYYMMDD格式,支持单个或多日期输入
+	LimitType string `json:"limit_type,omitempty"` // str	N	涨跌停类型：U涨停D跌停
+	StartDate string `json:"start_date,omitempty"` // str	N	开始日期 YYYYMMDD格式
+	EndDate   string `json:"end_date,omitempty"`   // str	N	结束日期 YYYYMMDD格式
+}
+
+type LimitListItems struct {
+	TradeDate bool `json:"trade_date,omitempty"` // str	Y	交易日期
+	TsCode    bool `json:"ts_code,omitempty"`    // str	Y	股票代码
+	Name      bool `json:"name,omitempty"`       // str	Y	股票名称
+	Close     bool `json:"close,omitempty"`      // float	Y	收盘价
+	PctChg    bool `json:"pct_chg,omitempty"`    // float	Y	涨跌幅
+	Amp       bool `json:"amp,omitempty"`        // float	Y	振幅
+	FcRatio   bool `json:"fc_ratio,omitempty"`   // float	Y	封单金额/日成交金额
+	FlRatio   bool `json:"fl_ratio,omitempty"`   // float	Y	封单手数/流通股本
+	FdAmount  bool `json:"fd_amount,omitempty"`  // float	Y	封单金额
+	FirstTime bool `json:"first_time,omitempty"` // str	Y	首次涨停时间
+	LastTime  bool `json:"last_time,omitempty"`  // str	Y	最后封板时间
+	OpenTimes bool `json:"open_times,omitempty"` // int	Y	打开次数
+	Strth     bool `json:"strth,omitempty"`      // float	Y	涨跌停强度
+	Limit     bool `json:"limit,omitempty"`      // str	Y	D跌停U涨停
+}
+
+func (item LimitListItems) All() LimitListItems {
+	item.TradeDate = true
+	item.TsCode = true
+	item.Name = true
+	item.Close = true
+	item.PctChg = true
+	item.Amp = true
+	item.FcRatio = true
+	item.FlRatio = true
+	item.FdAmount = true
+	item.FirstTime = true
+	item.LastTime = true
+	item.OpenTimes = true
+	item.Strth = true
+	item.Limit = true
+	return item
+}
+
+type LimitListData struct {
+	TradeDate string  `json:"trade_date,omitempty"` // str	Y	交易日期
+	TsCode    string  `json:"ts_code,omitempty"`    // str	Y	股票代码
+	Name      string  `json:"name,omitempty"`       // str	Y	股票名称
+	Close     float64 `json:"close,omitempty"`      // float	Y	收盘价
+	PctChg    float64 `json:"pct_chg,omitempty"`    // float	Y	涨跌幅
+	Amp       float64 `json:"amp,omitempty"`        // float	Y	振幅
+	FcRatio   float64 `json:"fc_ratio,omitempty"`   // float	Y	封单金额/日成交金额
+	FlRatio   float64 `json:"fl_ratio,omitempty"`   // float	Y	封单手数/流通股本
+	FdAmount  float64 `json:"fd_amount,omitempty"`  // float	Y	封单金额
+	FirstTime string  `json:"first_time,omitempty"` // str	Y	首次涨停时间
+	LastTime  string  `json:"last_time,omitempty"`  // str	Y	最后封板时间
+	OpenTimes int64   `json:"open_times,omitempty"` // int	Y	打开次数
+	Strth     float64 `json:"strth,omitempty"`      // float	Y	涨跌停强度
+	Limit     string  `json:"limit,omitempty"`      // str	Y	D跌停U涨停
+}
+
+func AssembleLimitListData(tsRsp *TushareResponse) []*LimitListData {
+	tsData := []*LimitListData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(LimitListData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取每日涨跌停股票统计,包括封闭时间和打开次数等数据,帮助用户快速定位近期强(弱)势股,以及研究超短线策略,单次最大1000,总量不限制,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) LimitList(params LimitListRequest, items LimitListItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "limit_list",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type GGTDailyRequest struct {
+	TradeDate string `json:"trade_date,omitempty"` // str	N	交易日期 (格式YYYYMMDD,下同.支持单日和多日输入) 20180924,20170925
+	StartDate string `json:"start_date,omitempty"` // str	N	开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	结束日期
+}
+
+type GGTDailyItems struct {
+	TradeDate  bool `json:"trade_date,omitempty"`  // str	Y	交易日期
+	BuyAmount  bool `json:"buy_amount,omitempty"`  // float	Y	买入成交金额(亿元)
+	BuyVolume  bool `json:"buy_volume,omitempty"`  // float	Y	买入成交笔数(万笔)
+	SellAmount bool `json:"sell_amount,omitempty"` // float	Y	卖出成交金额(亿元)
+	SellVolume bool `json:"sell_volume,omitempty"` // float	Y	卖出成交笔数(万笔)
+}
+
+func (item GGTDailyItems) All() GGTDailyItems {
+	item.TradeDate = true
+	item.BuyAmount = true
+	item.BuyVolume = true
+	item.SellAmount = true
+	item.SellVolume = true
+	return item
+}
+
+type GGTDailyData struct {
+	TradeDate  string  `json:"trade_date,omitempty"`  // str	Y	交易日期
+	BuyAmount  float64 `json:"buy_amount,omitempty"`  // float	Y	买入成交金额(亿元)
+	BuyVolume  float64 `json:"buy_volume,omitempty"`  // float	Y	买入成交笔数(万笔)
+	SellAmount float64 `json:"sell_amount,omitempty"` // float	Y	卖出成交金额(亿元)
+	SellVolume float64 `json:"sell_volume,omitempty"` // float	Y	卖出成交笔数(万笔)
+}
+
+func AssembleGGTDailyData(tsRsp *TushareResponse) []*GGTDailyData {
+	tsData := []*GGTDailyData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(GGTDailyData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取港股通每日成交信息,数据从2014年开始,单次最大1000,总量数据不限制,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) GGTDaily(params GGTDailyRequest, items GGTDailyItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "ggt_daily",
 		Token:   ts.token,
 		Params:  buildParams(params),
 		Fields:  reflectFields(items),

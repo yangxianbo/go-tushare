@@ -157,7 +157,7 @@ type NameChangeItems struct {
 	Name         bool `json:"name,omitempty"`          // str Y	证券名称
 	StartDate    bool `json:"start_date,omitempty"`    // str Y	开始日期
 	EndDate      bool `json:"end_date,omitempty"`      // str Y	结束日期
-	AnnDate      bool `json:"ann_date,omitempty"`      // str Y	公告日期
+	AnnDate      bool `json:"STKRewards,omitempty"`    // str Y	公告日期
 	ChangeReason bool `json:"change_reason,omitempty"` // str Y	变更原因
 }
 
@@ -176,7 +176,7 @@ type NameChangeData struct {
 	Name         string `json:"name,omitempty"`          // str Y	证券名称
 	StartDate    string `json:"start_date,omitempty"`    // str Y	开始日期
 	EndDate      string `json:"end_date,omitempty"`      // str Y	结束日期
-	AnnDate      string `json:"ann_date,omitempty"`      // str Y	公告日期
+	AnnDate      string `json:"STKRewards,omitempty"`    // str Y	公告日期
 	ChangeReason string `json:"change_reason,omitempty"` // str Y	变更原因
 }
 
@@ -431,4 +431,145 @@ func (ts *TuShare) NewShare(params NewShareCompanyRequest, items NewShareCompany
 func (ts *TuShare) Health() (err error) {
 	_, err = ts.TradeCal(TradeCalRequest{StartDate: Time2TushareDayTime(time.Now()), EndDate: Time2TushareDayTime(time.Now())}, TradeCalItems{}.All())
 	return err
+}
+
+type STKManagersRequest struct {
+	TsCode    string `json:"ts_code,omitempty"`    // str	N	股票代码,支持单个或多个股票输入 000001.SZ,600000.SH
+	AnnDate   string `json:"STKRewards,omitempty"` // str	N	公告日期(YYYYMMDD格式,下同)
+	StartDate string `json:"start_date,omitempty"` // str	N	公告开始日期
+	EndDate   string `json:"end_date,omitempty"`   // str	N	公告结束日期
+}
+
+type STKManagersItems struct {
+	TsCode    bool `json:"ts_code,omitempty"`    // str	Y	TS股票代码
+	AnnDate   bool `json:"STKRewards,omitempty"` // str	Y	公告日期
+	Name      bool `json:"name,omitempty"`       // str	Y	姓名
+	Gender    bool `json:"gender,omitempty"`     // str	Y	性别
+	Lev       bool `json:"lev,omitempty"`        // str	Y	岗位类别
+	Title     bool `json:"title,omitempty"`      // str	Y	岗位
+	Edu       bool `json:"edu,omitempty"`        // str	Y	学历
+	National  bool `json:"national,omitempty"`   // str	Y	国籍
+	Birthday  bool `json:"birthday,omitempty"`   // str	Y	出生年月
+	BeginDate bool `json:"begin_date,omitempty"` // str	Y	上任日期
+	EndDate   bool `json:"end_date,omitempty"`   // str	Y	离任日期
+	Resume    bool `json:"resume,omitempty"`     // str	N	个人简历
+}
+
+func (item STKManagersItems) All() STKManagersItems {
+	item.TsCode = true
+	item.AnnDate = true
+	item.Name = true
+	item.Gender = true
+	item.Lev = true
+	item.Title = true
+	item.Edu = true
+	item.National = true
+	item.Birthday = true
+	item.BeginDate = true
+	item.EndDate = true
+	item.Resume = true
+	return item
+}
+
+type STKManagersData struct {
+	TsCode    string `json:"ts_code,omitempty"`    // str	Y	TS股票代码
+	AnnDate   string `json:"STKRewards,omitempty"` // str	Y	公告日期
+	Name      string `json:"name,omitempty"`       // str	Y	姓名
+	Gender    string `json:"gender,omitempty"`     // str	Y	性别
+	Lev       string `json:"lev,omitempty"`        // str	Y	岗位类别
+	Title     string `json:"title,omitempty"`      // str	Y	岗位
+	Edu       string `json:"edu,omitempty"`        // str	Y	学历
+	National  string `json:"national,omitempty"`   // str	Y	国籍
+	Birthday  string `json:"birthday,omitempty"`   // str	Y	出生年月
+	BeginDate string `json:"begin_date,omitempty"` // str	Y	上任日期
+	EndDate   string `json:"end_date,omitempty"`   // str	Y	离任日期
+	Resume    string `json:"resume,omitempty"`     // str	N	个人简历
+}
+
+func AssembleSTKManagersData(tsRsp *TushareResponse) []*STKManagersData {
+	tsData := []*STKManagersData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(STKManagersData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取上市公司管理层,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) STKManagers(params STKManagersRequest, items STKManagersItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "stk_managers",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
+}
+
+type STKRewardsRequest struct {
+	TsCode  string `json:"ts_code,omitempty"`  // str	N	股票代码,支持单个或多个股票输入 000001.SZ,600000.SH
+	EndDate string `json:"end_date,omitempty"` // str	N	报告期
+}
+
+type STKRewardsItems struct {
+	TsCode  bool `json:"ts_code,omitempty"`  // str	Y	TS股票代码
+	AnnDate bool `json:"ann_date,omitempty"` // str	Y	公告日期
+	EndDate bool `json:"end_date,omitempty"` // str	Y	截止日期
+	Name    bool `json:"name,omitempty"`     // str	Y	姓名
+	Title   bool `json:"title,omitempty"`    // str	Y	职务
+	Reward  bool `json:"reward,omitempty"`   // float	Y	报酬
+	HoldVol bool `json:"hold_vol,omitempty"` // float	Y	持股数
+}
+
+func (item STKRewardsItems) All() STKRewardsItems {
+	item.TsCode = true
+	item.AnnDate = true
+	item.EndDate = true
+	item.Name = true
+	item.Title = true
+	item.Reward = true
+	item.HoldVol = true
+	return item
+}
+
+type STKRewardsData struct {
+	TsCode  string  `json:"ts_code,omitempty"`  // str	Y	TS股票代码
+	AnnDate string  `json:"ann_date,omitempty"` // str	Y	公告日期
+	EndDate string  `json:"end_date,omitempty"` // str	Y	截止日期
+	Name    string  `json:"name,omitempty"`     // str	Y	姓名
+	Title   string  `json:"title,omitempty"`    // str	Y	职务
+	Reward  float64 `json:"reward,omitempty"`   // float	Y	报酬
+	HoldVol float64 `json:"hold_vol,omitempty"` // float	Y	持股数
+}
+
+func AssembleSTKRewardsData(tsRsp *TushareResponse) []*STKRewardsData {
+	tsData := []*STKRewardsData{}
+	for _, data := range tsRsp.Data.Items {
+		body, err := ReflectResponseData(tsRsp.Data.Fields, data)
+		if err == nil {
+			n := new(STKRewardsData)
+			err = json.Unmarshal(body, &n)
+			if err == nil {
+				tsData = append(tsData, n)
+			}
+		}
+	}
+	return tsData
+}
+
+// 获取上市公司管理层薪酬和持股,用户需要至少2000积分才可以调取,具体请参阅积分获取办法 https://tushare.pro/document/1?doc_id=13
+func (ts *TuShare) STKRewards(params STKRewardsRequest, items STKRewardsItems) (tsRsp *TushareResponse, err error) {
+	req := &TushareRequest{
+		APIName: "stk_rewards",
+		Token:   ts.token,
+		Params:  buildParams(params),
+		Fields:  reflectFields(items),
+	}
+	return requestTushare(ts.client, http.MethodPost, req)
 }
