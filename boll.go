@@ -8,7 +8,7 @@ type Boll struct {
 }
 
 //NewBoll(20, 2)
-func newBoll(n, k int) *Boll {
+func NewBoll(n, k int) *Boll {
 	return &Boll{n: n, k: float64(k)}
 }
 func (this *Boll) sma(lines []*ProBarData) float64 {
@@ -29,7 +29,7 @@ func (this *Boll) dma(lines []*ProBarData, ma float64) float64 {
 	return math.Sqrt(sum / float64(this.n-1))
 }
 
-func (this *Boll) boll(lines []*ProBarData) {
+func (this *Boll) Boll(lines []*ProBarData) {
 	l := len(lines)
 	if l < this.n {
 		return

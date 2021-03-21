@@ -283,7 +283,7 @@ func (ts *TuShare) ProBar(params ProBarRequest) (data []*ProBarData, err error) 
 		closeData = append(closeData, p.Close)
 	}
 	for _, m := range params.MA {
-		maResult := ma(m, closeData)
+		maResult := MA(m, closeData)
 		for n, maNum := range maResult {
 			if data[n].MA == nil {
 				data[n].MA = make(map[int]float64)
@@ -293,7 +293,7 @@ func (ts *TuShare) ProBar(params ProBarRequest) (data []*ProBarData, err error) 
 	}
 	// BOLL
 	if params.BOLL.SD > 0 && params.BOLL.Width > 0 {
-		newBoll(params.BOLL.SD, params.BOLL.Width).boll(data)
+		NewBoll(params.BOLL.SD, params.BOLL.Width).Boll(data)
 	}
 	return
 }
@@ -388,7 +388,7 @@ func nfq(qData []*QuotationData, dMap map[string]*DailyBasicData) (pData []*ProB
 	return
 }
 
-func ma(nday int, data []float64) []float64 {
+func MA(nday int, data []float64) []float64 {
 	if nday == 0 {
 		return data
 	}
