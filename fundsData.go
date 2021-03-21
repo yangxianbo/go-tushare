@@ -68,31 +68,31 @@ func (item FundBasicItems) All() FundBasicItems {
 }
 
 type FundBasicData struct {
-	TsCode        string  `json:"ts_code,omitempty"`        // 	str	Y	基金代码
-	Name          string  `json:"name,omitempty"`           // 	str	Y	简称
-	Management    string  `json:"management,omitempty"`     // 	str	Y	管理人
-	Custodian     string  `json:"custodian,omitempty"`      // 	str	Y	托管人
-	FundType      string  `json:"fund_type,omitempty"`      // 	str	Y	投资类型
-	FoundDate     string  `json:"found_date,omitempty"`     // 	str	Y	成立日期
-	DueDate       string  `json:"due_date,omitempty"`       // 	str	Y	到期日期
-	ListDate      string  `json:"list_date,omitempty"`      // 	str	Y	上市时间
-	IssueDate     string  `json:"issue_date,omitempty"`     // 	str	Y	发行日期
-	DelistDate    string  `json:"delist_date,omitempty"`    // 	str	Y	退市日期
-	IssueAmount   float64 `json:"issue_amount,omitempty"`   // 	float	Y	发行份额(亿)
-	MFee          float64 `json:"m_fee,omitempty"`          // 	float	Y	管理费
-	CFee          float64 `json:"c_fee,omitempty"`          // 	float	Y	托管费
-	DurationYear  float64 `json:"duration_year,omitempty"`  // 	float	Y	存续期
-	PValue        float64 `json:"p_value,omitempty"`        // 	float	Y	面值
-	MinAmount     float64 `json:"min_amount,omitempty"`     // 	float	Y	起点金额(万元)
-	ExpReturn     float64 `json:"exp_return,omitempty"`     // 	float	Y	预期收益率
-	Benchmark     string  `json:"benchmark,omitempty"`      // 	str	Y	业绩比较基准
-	Status        string  `json:"status,omitempty"`         // 	str	Y	存续状态D摘牌 I发行 L已上市
-	InvestType    string  `json:"invest_type,omitempty"`    // 	str	Y	投资风格
-	Type          string  `json:"type,omitempty"`           // 	str	Y	基金类型
-	Trustee       string  `json:"trustee,omitempty"`        // 	str	Y	受托人
-	PurcStartdate string  `json:"purc_startdate,omitempty"` // 	str	Y	日常申购起始日
-	RedmStartdate string  `json:"redm_startdate,omitempty"` // 	str	Y	日常赎回起始日
-	Market        string  `json:"market,omitempty"`         // 	str	Y	E场内O场外
+	TsCode        string  `json:"ts_code,omitempty" gorm:"uniqueIndex"` // 	str	Y	基金代码
+	Name          string  `json:"name,omitempty"`                       // 	str	Y	简称
+	Management    string  `json:"management,omitempty"`                 // 	str	Y	管理人
+	Custodian     string  `json:"custodian,omitempty"`                  // 	str	Y	托管人
+	FundType      string  `json:"fund_type,omitempty"`                  // 	str	Y	投资类型
+	FoundDate     string  `json:"found_date,omitempty"`                 // 	str	Y	成立日期
+	DueDate       string  `json:"due_date,omitempty"`                   // 	str	Y	到期日期
+	ListDate      string  `json:"list_date,omitempty"`                  // 	str	Y	上市时间
+	IssueDate     string  `json:"issue_date,omitempty"`                 // 	str	Y	发行日期
+	DelistDate    string  `json:"delist_date,omitempty"`                // 	str	Y	退市日期
+	IssueAmount   float64 `json:"issue_amount,omitempty"`               // 	float	Y	发行份额(亿)
+	MFee          float64 `json:"m_fee,omitempty"`                      // 	float	Y	管理费
+	CFee          float64 `json:"c_fee,omitempty"`                      // 	float	Y	托管费
+	DurationYear  float64 `json:"duration_year,omitempty"`              // 	float	Y	存续期
+	PValue        float64 `json:"p_value,omitempty"`                    // 	float	Y	面值
+	MinAmount     float64 `json:"min_amount,omitempty"`                 // 	float	Y	起点金额(万元)
+	ExpReturn     float64 `json:"exp_return,omitempty"`                 // 	float	Y	预期收益率
+	Benchmark     string  `json:"benchmark,omitempty"`                  // 	str	Y	业绩比较基准
+	Status        string  `json:"status,omitempty" gorm:"index"`        // 	str	Y	存续状态D摘牌 I发行 L已上市
+	InvestType    string  `json:"invest_type,omitempty"`                // 	str	Y	投资风格
+	Type          string  `json:"type,omitempty"`                       // 	str	Y	基金类型
+	Trustee       string  `json:"trustee,omitempty"`                    // 	str	Y	受托人
+	PurcStartdate string  `json:"purc_startdate,omitempty"`             // 	str	Y	日常申购起始日
+	RedmStartdate string  `json:"redm_startdate,omitempty"`             // 	str	Y	日常赎回起始日
+	Market        string  `json:"market,omitempty"`                     // 	str	Y	E场内O场外
 }
 
 func AssembleFundBasicData(tsRsp *TushareResponse) []*FundBasicData {
@@ -535,14 +535,14 @@ func (item FundPortfolioItems) All() FundPortfolioItems {
 }
 
 type FundPortfolioData struct {
-	TsCode        string `json:"ts_code,omitempty"`         // 	str	Y	TS基金代码
-	AnnDate       string `json:"ann_date,omitempty"`        // 	str	Y	公告日期
-	EndDate       string `json:"end_date,omitempty"`        // 	str	Y	截止日期
-	Symbol        string `json:"symbol,omitempty"`          // 	str	Y	股票代码
-	Mkv           string `json:"mkv,omitempty"`             // 	float	Y	持有股票市值(元)
-	Amount        string `json:"amount,omitempty"`          // 	float	Y	持有股票数量(股)
-	StkMkvRatio   string `json:"stk_mkv_ratio,omitempty"`   // 	float	Y	占股票市值比
-	StkFloatRatio string `json:"stk_float_ratio,omitempty"` // 	float	Y	占流通股本比例
+	TsCode        string  `json:"ts_code,omitempty" gorm:"uniqueIndex:fcode"` // 	str	Y	TS基金代码
+	AnnDate       string  `json:"ann_date,omitempty"`                         // 	str	Y	公告日期
+	EndDate       string  `json:"end_date,omitempty"`                         // 	str	Y	截止日期
+	Symbol        string  `json:"symbol,omitempty" gorm:"uniqueIndex:fcode"`  // 	str	Y	股票代码
+	Mkv           float64 `json:"mkv,omitempty"`                              // 	float	Y	持有股票市值(元)
+	Amount        float64 `json:"amount,omitempty"`                           // 	float	Y	持有股票数量(股)
+	StkMkvRatio   float64 `json:"stk_mkv_ratio,omitempty"`                    // 	float	Y	占股票市值比
+	StkFloatRatio float64 `json:"stk_float_ratio,omitempty"`                  // 	float	Y	占流通股本比例
 }
 
 func AssembleFundPortfolioData(tsRsp *TushareResponse) []*FundPortfolioData {

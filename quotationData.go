@@ -47,17 +47,17 @@ func (item QuotationItems) All() QuotationItems {
 }
 
 type QuotationData struct {
-	TsCode    string  `json:"ts_code,omitempty"`    // str	股票代码
-	TradeDate string  `json:"trade_date,omitempty"` // str	交易日期
-	Open      float64 `json:"open,omitempty"`       // float	(1/5/15/30/60分钟) D日 W周 M月 开盘价
-	High      float64 `json:"high,omitempty"`       // float	(1/5/15/30/60分钟) D日 W周 M月 最高价
-	Low       float64 `json:"low,omitempty"`        // float	(1/5/15/30/60分钟) D日 W周 M月 最低价
-	Close     float64 `json:"close,omitempty"`      // float	(1/5/15/30/60分钟) D日 W周 M月 收盘价
-	PreClose  float64 `json:"pre_close,omitempty"`  // float	上一(1/5/15/30/60分钟) D日 W周 M月 收盘价
-	Change    float64 `json:"change,omitempty"`     // float	(1/5/15/30/60分钟) D日 W周 M月 涨跌额
-	PctChg    float64 `json:"pct_chg,omitempty"`    // float	(1/5/15/30/60分钟) D日 W周 M月 涨跌幅
-	Vol       float64 `json:"vol,omitempty"`        // float	(1/5/15/30/60分钟) D日 W周 M月 成交量 (手)
-	Amount    float64 `json:"amount,omitempty"`     // float	(1/5/15/30/60分钟) D日 W周 M月 成交额 (千元)
+	TsCode    string  `json:"ts_code,omitempty" gorm:"uniqueIndex:tcode"`    // str	股票代码
+	TradeDate string  `json:"trade_date,omitempty" gorm:"uniqueIndex:tcode"` // str	交易日期
+	Open      float64 `json:"open,omitempty"`                                // float	(1/5/15/30/60分钟) D日 W周 M月 开盘价
+	High      float64 `json:"high,omitempty"`                                // float	(1/5/15/30/60分钟) D日 W周 M月 最高价
+	Low       float64 `json:"low,omitempty"`                                 // float	(1/5/15/30/60分钟) D日 W周 M月 最低价
+	Close     float64 `json:"close,omitempty"`                               // float	(1/5/15/30/60分钟) D日 W周 M月 收盘价
+	PreClose  float64 `json:"pre_close,omitempty"`                           // float	上一(1/5/15/30/60分钟) D日 W周 M月 收盘价
+	Change    float64 `json:"change,omitempty"`                              // float	(1/5/15/30/60分钟) D日 W周 M月 涨跌额
+	PctChg    float64 `json:"pct_chg,omitempty"`                             // float	(1/5/15/30/60分钟) D日 W周 M月 涨跌幅
+	Vol       float64 `json:"vol,omitempty"`                                 // float	(1/5/15/30/60分钟) D日 W周 M月 成交量 (手)
+	Amount    float64 `json:"amount,omitempty"`                              // float	(1/5/15/30/60分钟) D日 W周 M月 成交额 (千元)
 }
 
 func AssembleQuotationData(tsRsp *TushareResponse) []*QuotationData {
@@ -196,9 +196,14 @@ func (params ProBarRequest) init() (newParams ProBarRequest, err error) {
 
 type ProBarData struct {
 	QuotationData
-	DailyBasic *DailyBasicData `json:"daily_basic,omitempty"` // 每日指标数据
-	MA         map[int]float64 `json:"ma,omitempty"`          // list	N	均线,支持任意周期的均价和均量,输入任意合理int数值
-	BOLL       BOLLData        `json:"boll,omitempty"`        // BOLLData	N	均线,支持任意周期的均价和均量,输入任意合理int数值
+	DailyBasic *DailyBasicData `json:"daily_basic,omitempty" gorm:"embedded;embeddedPrefix:basic_"` // 每日指标数据
+	MA         map[int]float64 `json:"ma,omitempty" gorm:"-"`                                       // list	N	均线,支持任意周期的均价和均量,输入任意合理int数值,由于存储复杂,频闭gorm,存储时用户自行计算
+	BOLL       BOLLData        `json:"boll,omitempty" gorm:"-"`                                     // BOLLData	N	均线,支持任意周期的均价和均量,输入任意合理int数值,由于存储复杂,频闭gorm,存储时用户自行计算
+}
+
+type MAData struct {
+	Mv    int
+	Value float64
 }
 
 type BOLLData struct {

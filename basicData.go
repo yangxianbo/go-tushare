@@ -49,20 +49,20 @@ func (item StockBasicItems) All() StockBasicItems {
 }
 
 type StockBasicData struct {
-	TsCode     string `json:"ts_code,omitempty"`     // str TS代码
-	Symbol     string `json:"symbol,omitempty"`      // str 股票代码
-	Name       string `json:"name,omitempty"`        // str 股票名称
-	Area       string `json:"area,omitempty"`        // str 所在地域
-	Industry   string `json:"industry,omitempty"`    // str 所属行业
-	Fullname   string `json:"fullname,omitempty"`    // str 股票全称
-	Enname     string `json:"enname,omitempty"`      // str 英文全称
-	Market     string `json:"market,omitempty"`      // str 市场类型 (主板/中小板/创业板/科创板/CDR)
-	Exchange   string `json:"exchange,omitempty"`    // str 交易所代码
-	CurrType   string `json:"curr_type,omitempty"`   // str 交易货币
-	ListStatus string `json:"list_status,omitempty"` // str 上市状态: L上市 D退市 P暂停上市
-	ListDate   string `json:"list_date,omitempty"`   // str 上市日期
-	DelistDate string `json:"delist_date,omitempty"` // str 退市日期
-	IsHs       string `json:"is_hs,omitempty"`       // str 是否沪深港通标的,N否 H沪股通 S深股通
+	TsCode     string `json:"ts_code,omitempty" gorm:"uniqueIndex"` // str TS代码
+	Symbol     string `json:"symbol,omitempty"`                     // str 股票代码
+	Name       string `json:"name,omitempty"`                       // str 股票名称
+	Area       string `json:"area,omitempty"`                       // str 所在地域
+	Industry   string `json:"industry,omitempty"`                   // str 所属行业
+	Fullname   string `json:"fullname,omitempty"`                   // str 股票全称
+	Enname     string `json:"enname,omitempty"`                     // str 英文全称
+	Market     string `json:"market,omitempty"`                     // str 市场类型 (主板/中小板/创业板/科创板/CDR)
+	Exchange   string `json:"exchange,omitempty"`                   // str 交易所代码
+	CurrType   string `json:"curr_type,omitempty"`                  // str 交易货币
+	ListStatus string `json:"list_status,omitempty"`                // str 上市状态: L上市 D退市 P暂停上市
+	ListDate   string `json:"list_date,omitempty"`                  // str 上市日期
+	DelistDate string `json:"delist_date,omitempty"`                // str 退市日期
+	IsHs       string `json:"is_hs,omitempty"`                      // str 是否沪深港通标的,N否 H沪股通 S深股通
 }
 
 func AssembleStockBasicData(tsRsp *TushareResponse) []*StockBasicData {
@@ -114,10 +114,10 @@ func (item TradeCalItems) All() TradeCalItems {
 }
 
 type TradeCalData struct {
-	Exchange     string `json:"exchange,omitempty"`      // str Y	交易所 SSE上交所 SZSE深交所
-	CalDate      string `json:"cal_date,omitempty"`      // str Y	日历日期
-	IsOpen       string `json:"is_open,omitempty"`       // str Y	是否交易 0休市 1交易
-	PretradeDate string `json:"pretrade_date,omitempty"` // str N	上一个交易日
+	Exchange     string `json:"exchange,omitempty"`                    // str Y	交易所 SSE上交所 SZSE深交所
+	CalDate      string `json:"cal_date,omitempty" gorm:"uniqueIndex"` // str Y	日历日期
+	IsOpen       string `json:"is_open,omitempty"`                     // str Y	是否交易 0休市 1交易
+	PretradeDate string `json:"pretrade_date,omitempty"`               // str N	上一个交易日
 }
 
 func AssembleTradeCalData(tsRsp *TushareResponse) []*TradeCalData {
