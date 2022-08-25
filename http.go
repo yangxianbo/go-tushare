@@ -11,7 +11,8 @@ import (
 )
 
 const (
-	tushareAPI = "https://api.waditu.com/"
+	// tushareAPI = "https://api.waditu.com/"
+	tushareAPI = "http://api.tushare.pro/"
 )
 
 func init() {
